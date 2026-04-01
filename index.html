@@ -1,329 +1,185 @@
-import React, { useState, useEffect } from 'react';
-import { 
-  Cpu, 
-  Brain, 
-  Zap, 
-  Target, 
-  BarChart3, 
-  Bot, 
-  Layers, 
-  MessageSquare, 
-  Linkedin, 
-  Mail, 
-  ChevronRight,
-  Code2,
-  Workflow,
-  Globe,
-  Database,
-  Search
-} from 'lucide-react';
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leonardo Nobrega | MarOps & AI Specialist</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <!-- React & Babel for Browser Rendering -->
+    <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        body { font-family: 'Source Sans 3', sans-serif; }
+        .animate-fade-in { animation: fadeIn 1s ease-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        /* Ajuste para ícones lucide não carregarem antes do tempo */
+        [data-lucide] { width: 24px; height: 24px; }
+    </style>
+</head>
+<body class="bg-[#020617] text-white">
+    <div id="root"></div>
 
-const App = () => {
-  const [isScrolled, setIsScrolled] = useState(false);
+    <script type="text/babel">
+        const { useState, useEffect } = React;
+        
+        // Componente de Ícone para lidar com a biblioteca externa
+        const Icon = ({ name, size = 24, className = "" }) => {
+            useEffect(() => {
+                if (window.lucide) {
+                    window.lucide.createIcons();
+                }
+            }, [name]);
+            return <i data-lucide={name} className={className} style={{ width: size, height: size }}></i>;
+        };
 
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
-    };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+        const App = () => {
+            const [isScrolled, setIsScrolled] = useState(false);
 
-  const navLinks = [
-    { name: 'Sobre', href: '#sobre' },
-    { name: 'Especialidades', href: '#especialidades' },
-    { name: 'Stack', href: '#stack' },
-    { name: 'Cases', href: '#cases' },
-    { name: 'Contato', href: '#contato' },
-  ];
+            useEffect(() => {
+                const handleScroll = () => setIsScrolled(window.scrollY > 50);
+                window.addEventListener('scroll', handleScroll);
+                if (window.lucide) window.lucide.createIcons();
+                return () => window.removeEventListener('scroll', handleScroll);
+            }, []);
 
-  return (
-    <div className="min-h-screen bg-[#020617] text-white selection:bg-[#075FE4] selection:text-white font-['Source_Sans_3',sans-serif]">
-      <style>
-        {`@import url('https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@300;400;600;700&display=swap');`}
-      </style>
+            const navLinks = [
+                { name: 'Sobre', href: '#sobre' },
+                { name: 'Stack', href: '#stack' },
+                { name: 'Cases', href: '#cases' },
+                { name: 'Contato', href: '#contato' },
+            ];
 
-      {/* Navigation */}
-      <nav className={`fixed w-full z-50 transition-all duration-300 ${isScrolled ? 'bg-[#020617]/90 backdrop-blur-md py-4 border-b border-white/10' : 'bg-transparent py-6'}`}>
-        <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
-          <div className="flex items-center gap-2">
-            <div className="w-8 h-8 bg-[#075FE4] rounded-lg flex items-center justify-center font-bold text-xl">L</div>
-            <span className="font-bold text-xl tracking-tight hidden sm:block">LEONARDO NOBREGA</span>
-          </div>
-          <div className="hidden md:flex items-center gap-8">
-            {navLinks.map((link) => (
-              <a key={link.name} href={link.href} className="text-sm font-medium hover:text-[#075FE4] transition-colors uppercase tracking-wider">
-                {link.name}
-              </a>
-            ))}
-          </div>
-          <a href="#contato" className="bg-[#075FE4] hover:bg-[#075FE4]/80 px-5 py-2 rounded-full text-sm font-bold transition-all transform hover:scale-105 active:scale-95">
-            VAMOS CONVERSAR
-          </a>
-        </div>
-      </nav>
-
-      {/* Hero Section */}
-      <section className="relative pt-32 pb-20 md:pt-48 md:pb-32 overflow-hidden">
-        {/* Background glow effects */}
-        <div className="absolute top-1/4 -left-20 w-96 h-96 bg-[#075FE4]/20 rounded-full blur-[120px]" />
-        <div className="absolute bottom-1/4 -right-20 w-96 h-96 bg-[#075FE4]/10 rounded-full blur-[120px]" />
-
-        <div className="max-w-7xl mx-auto px-6 relative z-10 text-center md:text-left md:flex items-center gap-12">
-          <div className="flex-1">
-            <div className="inline-flex items-center gap-2 px-4 py-1 rounded-full border border-[#075FE4]/30 bg-[#075FE4]/10 text-[#075FE4] text-xs font-bold tracking-widest uppercase mb-6 animate-fade-in">
-              <Zap size={14} /> High-Tech, High-Touch
-            </div>
-            <h1 className="text-5xl md:text-7xl font-bold leading-tight mb-6">
-              Estratégia em dados. <br />
-              <span className="text-[#075FE4]">Inovação em escala.</span>
-            </h1>
-            <p className="text-xl text-slate-400 mb-8 max-w-2xl leading-relaxed">
-              Transformando objetivos de negócio em resultados escaláveis através da convergência entre estratégia de dados, MarTech e agentes de IA.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
-              <a href="#cases" className="bg-[#075FE4] hover:bg-[#075FE4]/80 px-8 py-4 rounded-xl font-bold flex items-center justify-center gap-2 transition-all group">
-                VER PROJETOS <ChevronRight size={18} className="group-hover:translate-x-1 transition-transform" />
-              </a>
-              <a href="#stack" className="border border-white/20 hover:border-[#075FE4] px-8 py-4 rounded-xl font-bold transition-all bg-white/5 backdrop-blur-sm">
-                MINHA TECH STACK
-              </a>
-            </div>
-          </div>
-          <div className="hidden lg:block flex-1 relative">
-             <div className="relative w-full aspect-square max-w-md mx-auto">
-                <div className="absolute inset-0 border border-[#075FE4]/30 rounded-full animate-pulse" />
-                <div className="absolute inset-4 border border-[#075FE4]/20 rounded-full animate-pulse delay-75" />
-                <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="grid grid-cols-2 gap-4">
-                        <div className="p-6 bg-slate-900/80 backdrop-blur-xl border border-white/10 rounded-2xl transform hover:scale-105 transition-transform duration-300">
-                             <Cpu className="text-[#075FE4] mb-3" size={32} />
-                             <h3 className="font-bold text-sm">IA & Agentes</h3>
+            return (
+                <div className="min-h-screen bg-[#020617] selection:bg-[#075FE4] selection:text-white">
+                    {/* Navegação */}
+                    <nav className={`fixed w-full z-50 transition-all duration-300 ${isScrolled ? 'bg-[#020617]/90 backdrop-blur-md py-4 border-b border-white/10' : 'bg-transparent py-6'}`}>
+                        <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
+                            <div className="flex items-center gap-2">
+                                <div className="w-8 h-8 bg-[#075FE4] rounded-lg flex items-center justify-center font-bold text-xl text-white">L</div>
+                                <span className="font-bold text-xl tracking-tight hidden sm:block uppercase">Leonardo Nobrega</span>
+                            </div>
+                            <div className="hidden md:flex items-center gap-8">
+                                {navLinks.map((link) => (
+                                    <a key={link.name} href={link.href} className="text-sm font-medium hover:text-[#075FE4] transition-colors uppercase tracking-wider">
+                                        {link.name}
+                                    </a>
+                                ))}
+                            </div>
+                            <a href="#contato" className="bg-[#075FE4] hover:bg-[#075FE4]/80 px-5 py-2 rounded-full text-sm font-bold transition-all transform hover:scale-105 active:scale-95">
+                                CONTATO
+                            </a>
                         </div>
-                        <div className="p-6 bg-slate-900/80 backdrop-blur-xl border border-white/10 rounded-2xl transform translate-y-8 hover:scale-105 transition-transform duration-300">
-                             <Workflow className="text-[#075FE4] mb-3" size={32} />
-                             <h3 className="font-bold text-sm">Automação</h3>
+                    </nav>
+
+                    {/* Hero Section */}
+                    <section className="relative pt-32 pb-20 md:pt-48 md:pb-32 overflow-hidden">
+                        <div className="absolute top-1/4 -left-20 w-96 h-96 bg-[#075FE4]/20 rounded-full blur-[120px]" />
+                        <div className="absolute bottom-1/4 -right-20 w-96 h-96 bg-[#075FE4]/10 rounded-full blur-[120px]" />
+
+                        <div className="max-w-7xl mx-auto px-6 relative z-10 text-center md:text-left md:flex items-center gap-12">
+                            <div className="flex-1">
+                                <div className="inline-flex items-center gap-2 px-4 py-1 rounded-full border border-[#075FE4]/30 bg-[#075FE4]/10 text-[#075FE4] text-xs font-bold tracking-widest uppercase mb-6 animate-fade-in">
+                                    <Icon name="zap" size={14} /> High-Tech, High-Touch
+                                </div>
+                                <h1 className="text-5xl md:text-7xl font-bold leading-tight mb-6">
+                                    Estratégia em dados. <br />
+                                    <span className="text-[#075FE4]">Inovação em escala.</span>
+                                </h1>
+                                <p className="text-xl text-slate-400 mb-8 max-w-2xl leading-relaxed">
+                                    Transformando objetivos de negócio em resultados escaláveis através da convergência entre estratégia de dados, MarTech e agentes de IA.
+                                </p>
+                                <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
+                                    <a href="#cases" className="bg-[#075FE4] hover:bg-[#075FE4]/80 px-8 py-4 rounded-xl font-bold flex items-center justify-center gap-2 transition-all group">
+                                        VER PROJETOS <Icon name="chevron-right" size={18} className="group-hover:translate-x-1 transition-transform" />
+                                    </a>
+                                    <a href="#stack" className="border border-white/20 hover:border-[#075FE4] px-8 py-4 rounded-xl font-bold transition-all bg-white/5 backdrop-blur-sm">
+                                        MINHA TECH STACK
+                                    </a>
+                                </div>
+                            </div>
+                            <div className="hidden lg:block flex-1 relative">
+                                <div className="relative w-full aspect-square max-w-md mx-auto">
+                                    <div className="absolute inset-0 border border-[#075FE4]/30 rounded-full animate-pulse" />
+                                    <div className="absolute inset-0 flex items-center justify-center">
+                                        <div className="grid grid-cols-2 gap-4">
+                                            <div className="p-6 bg-slate-900/80 backdrop-blur-xl border border-white/10 rounded-2xl transform hover:scale-105 transition-transform duration-300">
+                                                <Icon name="cpu" size={32} className="text-[#075FE4] mb-3" />
+                                                <h3 className="font-bold text-sm">IA & Agentes</h3>
+                                            </div>
+                                            <div className="p-6 bg-slate-900/80 backdrop-blur-xl border border-white/10 rounded-2xl transform translate-y-8 hover:scale-105 transition-transform duration-300">
+                                                <Icon name="workflow" size={32} className="text-[#075FE4] mb-3" />
+                                                <h3 className="font-bold text-sm">Automação</h3>
+                                            </div>
+                                            <div className="p-6 bg-slate-900/80 backdrop-blur-xl border border-white/10 rounded-2xl transform -translate-y-4 hover:scale-105 transition-transform duration-300">
+                                                <Icon name="bar-chart-3" size={32} className="text-[#075FE4] mb-3" />
+                                                <h3 className="font-bold text-sm">Growth Ops</h3>
+                                            </div>
+                                            <div className="p-6 bg-slate-900/80 backdrop-blur-xl border border-white/10 rounded-2xl transform translate-y-4 hover:scale-105 transition-transform duration-300">
+                                                <Icon name="brain" size={32} className="text-[#075FE4] mb-3" />
+                                                <h3 className="font-bold text-sm">Criatividade</h3>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div className="p-6 bg-slate-900/80 backdrop-blur-xl border border-white/10 rounded-2xl transform -translate-y-4 hover:scale-105 transition-transform duration-300">
-                             <BarChart3 className="text-[#075FE4] mb-3" size={32} />
-                             <h3 className="font-bold text-sm">Growth Ops</h3>
+                    </section>
+
+                    {/* Triângulo de Poder */}
+                    <section id="sobre" className="py-24 bg-[#010411]">
+                        <div className="max-w-7xl mx-auto px-6">
+                            <div className="text-center mb-16">
+                                <h2 className="text-3xl md:text-5xl font-bold mb-4">O Triângulo de Poder</h2>
+                                <p className="text-slate-400 max-w-2xl mx-auto">Minha abordagem une o rigor analítico dos dados com a eficiência da tecnologia e a diferenciação da criatividade humana.</p>
+                            </div>
+                            <div className="grid md:grid-cols-3 gap-8">
+                                <div className="p-8 rounded-3xl bg-slate-900/50 border border-white/5 hover:border-[#075FE4]/30 transition-all group">
+                                    <Icon name="target" size={28} className="text-[#075FE4] mb-6" />
+                                    <h3 className="text-2xl font-bold mb-3">Estratégia</h3>
+                                    <p className="text-slate-400 text-sm leading-relaxed mb-4">O CÉREBRO: Assertividade na tomada de decisão baseada em dados e métricas reais (ROI, LTV, CAC).</p>
+                                </div>
+                                <div className="p-8 rounded-3xl bg-slate-900/50 border border-[#075FE4]/20 shadow-2xl transition-all group scale-105 relative">
+                                    <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-[#075FE4] text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase">Main Driver</div>
+                                    <Icon name="cpu" size={28} className="text-[#075FE4] mb-6" />
+                                    <h3 className="text-2xl font-bold mb-3">Inovação</h3>
+                                    <p className="text-slate-400 text-sm leading-relaxed mb-4">O MOTOR: Capacidade de superar desafios operacionais através de MarOps e IA Generativa.</p>
+                                </div>
+                                <div className="p-8 rounded-3xl bg-slate-900/50 border border-white/5 hover:border-[#075FE4]/30 transition-all group">
+                                    <Icon name="brain" size={28} className="text-[#075FE4] mb-6" />
+                                    <h3 className="text-2xl font-bold mb-3">Criatividade</h3>
+                                    <p className="text-slate-400 text-sm leading-relaxed mb-4">A ALMA: O lado humano; a capacidade de enxergar além do óbvio e criar conexões reais.</p>
+                                </div>
+                            </div>
                         </div>
-                        <div className="p-6 bg-slate-900/80 backdrop-blur-xl border border-white/10 rounded-2xl transform translate-y-4 hover:scale-105 transition-transform duration-300">
-                             <Brain className="text-[#075FE4] mb-3" size={32} />
-                             <h3 className="font-bold text-sm">Criatividade</h3>
+                    </section>
+
+                    {/* Rodapé / Contato */}
+                    <section id="contato" className="py-24 text-center">
+                        <div className="max-w-4xl mx-auto px-6">
+                            <h2 className="text-4xl md:text-6xl font-bold mb-8">Vamos escalar seu marketing?</h2>
+                            <div className="flex flex-col sm:flex-row gap-6 justify-center">
+                                <a href="https://www.linkedin.com/in/nobregasleo" target="_blank" className="bg-[#075FE4] px-10 py-5 rounded-2xl font-bold flex items-center justify-center gap-3 transition-all hover:bg-[#075FE4]/80">
+                                    <Icon name="linkedin" /> LINKEDIN
+                                </a>
+                                <a href="mailto:nobregasleo@gmail.com" className="bg-white/10 border border-white/20 px-10 py-5 rounded-2xl font-bold flex items-center justify-center gap-3 transition-all hover:bg-white/20">
+                                    <Icon name="mail" /> E-MAIL
+                                </a>
+                            </div>
+                            <p className="mt-20 text-slate-500 text-xs uppercase tracking-widest">© 2026 Leonardo Nobrega • Santos, SP • Remote / Hybrid</p>
                         </div>
-                    </div>
+                    </section>
                 </div>
-             </div>
-          </div>
-        </div>
-      </section>
+            );
+        };
 
-      {/* Power Triangle / Philosophy */}
-      <section id="sobre" className="py-24 bg-[#010411]">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-5xl font-bold mb-4">O Triângulo de Poder</h2>
-            <p className="text-slate-400 max-w-2xl mx-auto">Minha abordagem une o rigor analítico dos dados com a eficiência da tecnologia e a diferenciação da criatividade humana.</p>
-          </div>
-
-          <div className="grid md:grid-cols-3 gap-8">
-            {/* Strategy */}
-            <div className="p-8 rounded-3xl bg-slate-900/50 border border-white/5 hover:border-[#075FE4]/30 transition-all group">
-              <div className="w-14 h-14 bg-white/5 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-[#075FE4]/10 transition-colors">
-                <Target className="text-[#075FE4]" size={28} />
-              </div>
-              <h3 className="text-2xl font-bold mb-3">Estratégia</h3>
-              <p className="text-slate-400 mb-4 text-sm leading-relaxed">O CÉREBRO: Assertividade na tomada de decisão baseada em dados e métricas reais (ROI, LTV, CAC).</p>
-              <ul className="text-xs space-y-2 text-slate-500 uppercase tracking-wide">
-                <li className="flex items-center gap-2"><div className="w-1 h-1 bg-[#075FE4] rounded-full" /> Análise de Funil</li>
-                <li className="flex items-center gap-2"><div className="w-1 h-1 bg-[#075FE4] rounded-full" /> Business Intelligence</li>
-                <li className="flex items-center gap-2"><div className="w-1 h-1 bg-[#075FE4] rounded-full" /> Planejamento de Revenue</li>
-              </ul>
-            </div>
-
-            {/* Innovation */}
-            <div className="p-8 rounded-3xl bg-slate-900/50 border border-white/5 hover:border-[#075FE4]/30 transition-all group scale-105 border-[#075FE4]/20 shadow-2xl shadow-[#075FE4]/5 relative">
-                <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-[#075FE4] text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase">Main Driver</div>
-              <div className="w-14 h-14 bg-white/5 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-[#075FE4]/10 transition-colors">
-                <Cpu className="text-[#075FE4]" size={28} />
-              </div>
-              <h3 className="text-2xl font-bold mb-3">Inovação</h3>
-              <p className="text-slate-400 mb-4 text-sm leading-relaxed">O MOTOR: Capacidade de superar desafios operacionais através de MarOps e IA Generativa.</p>
-              <ul className="text-xs space-y-2 text-slate-500 uppercase tracking-wide">
-                <li className="flex items-center gap-2"><div className="w-1 h-1 bg-[#075FE4] rounded-full" /> Fluxos de Automação</li>
-                <li className="flex items-center gap-2"><div className="w-1 h-1 bg-[#075FE4] rounded-full" /> Integração de LLMs</li>
-                <li className="flex items-center gap-2"><div className="w-1 h-1 bg-[#075FE4] rounded-full" /> Agentes Autônomos</li>
-              </ul>
-            </div>
-
-            {/* Creativity */}
-            <div className="p-8 rounded-3xl bg-slate-900/50 border border-white/5 hover:border-[#075FE4]/30 transition-all group">
-              <div className="w-14 h-14 bg-white/5 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-[#075FE4]/10 transition-colors">
-                <Brain className="text-[#075FE4]" size={28} />
-              </div>
-              <h3 className="text-2xl font-bold mb-3">Criatividade</h3>
-              <p className="text-slate-400 mb-4 text-sm leading-relaxed">A ALMA: O lado humano; a capacidade de enxergar além do óbvio e criar conexões reais.</p>
-              <ul className="text-xs space-y-2 text-slate-500 uppercase tracking-wide">
-                <li className="flex items-center gap-2"><div className="w-1 h-1 bg-[#075FE4] rounded-full" /> Copywriting Estratégico</li>
-                <li className="flex items-center gap-2"><div className="w-1 h-1 bg-[#075FE4] rounded-full" /> UX & CRO</li>
-                <li className="flex items-center gap-2"><div className="w-1 h-1 bg-[#075FE4] rounded-full" /> Curadoria Humana</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Tech Stack */}
-      <section id="stack" className="py-24 border-t border-white/5">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16">
-            <div>
-              <h2 className="text-3xl md:text-5xl font-bold mb-4">Minha Stack Universal</h2>
-              <p className="text-slate-400 max-w-xl">Domínio das infraestruturas mais modernas para SaaS e grandes empresas.</p>
-            </div>
-            <div className="bg-white/5 p-4 rounded-2xl border border-white/10 flex items-center gap-4">
-                <div className="text-right">
-                    <p className="text-[10px] text-slate-500 uppercase font-bold">MBA Em Curso</p>
-                    <p className="text-sm font-bold">Marketing, Tech & AI • PUC-PR</p>
-                </div>
-                <div className="w-10 h-10 bg-white/10 rounded-xl flex items-center justify-center">
-                    <Layers className="text-[#075FE4]" size={20} />
-                </div>
-            </div>
-          </div>
-
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8">
-            {[
-              { name: 'HubSpot', desc: 'Arquiteto de CRM e RevOps', icon: <Database className="text-orange-500" /> },
-              { name: 'n8n & Make', desc: 'Automação Complexa de Workflows', icon: <Workflow className="text-indigo-400" /> },
-              { name: 'OpenAI / Anthropic', desc: 'Integração de APIs e Agentes de IA', icon: <Bot className="text-emerald-400" /> },
-              { name: 'GA4 & GTM', desc: 'Mensuração e Inteligência de Dados', icon: <BarChart3 className="text-yellow-400" /> },
-            ].map((item, i) => (
-              <div key={i} className="p-6 rounded-2xl bg-white/5 border border-white/5 hover:bg-white/[0.08] transition-all">
-                <div className="mb-4">{item.icon}</div>
-                <h4 className="font-bold mb-1">{item.name}</h4>
-                <p className="text-xs text-slate-500">{item.desc}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Cases/Portfolio */}
-      <section id="cases" className="py-24 bg-slate-950 relative overflow-hidden">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="text-center mb-16">
-            <span className="text-[#075FE4] text-xs font-bold tracking-[0.3em] uppercase mb-2 block">Soluções de Arquitetura</span>
-            <h2 className="text-3xl md:text-5xl font-bold">Portfólio de Impacto</h2>
-          </div>
-
-          <div className="grid lg:grid-cols-3 gap-8">
-            {/* Case 1 */}
-            <div className="group relative rounded-3xl overflow-hidden bg-slate-900 border border-white/10 hover:border-[#075FE4]/50 transition-all flex flex-col">
-              <div className="h-48 bg-gradient-to-br from-[#075FE4]/20 to-[#020617] flex items-center justify-center p-8">
-                <div className="p-4 bg-white/10 backdrop-blur-md rounded-2xl border border-white/10">
-                    <Search className="text-white animate-pulse" size={40} />
-                </div>
-              </div>
-              <div className="p-8 flex-1 flex flex-col">
-                <div className="text-[10px] font-bold text-[#075FE4] uppercase mb-2">IA & Vendas</div>
-                <h3 className="text-xl font-bold mb-3">O "SDR Digital"</h3>
-                <p className="text-sm text-slate-400 leading-relaxed mb-6">Agente de qualificação automática que utiliza Make.com + OpenAI para enriquecer leads em tempo real e agendar reuniões estrategicamente.</p>
-                <div className="mt-auto flex flex-wrap gap-2">
-                    <span className="text-[10px] px-2 py-1 bg-white/5 rounded-md border border-white/10 text-slate-400">Make.com</span>
-                    <span className="text-[10px] px-2 py-1 bg-white/5 rounded-md border border-white/10 text-slate-400">GPT-4o</span>
-                    <span className="text-[10px] px-2 py-1 bg-white/5 rounded-md border border-white/10 text-slate-400">HubSpot</span>
-                </div>
-              </div>
-            </div>
-
-            {/* Case 2 */}
-            <div className="group relative rounded-3xl overflow-hidden bg-slate-900 border border-white/10 hover:border-[#075FE4]/50 transition-all flex flex-col">
-              <div className="h-48 bg-gradient-to-br from-indigo-900/20 to-[#020617] flex items-center justify-center p-8">
-                <div className="p-4 bg-white/10 backdrop-blur-md rounded-2xl border border-white/10">
-                    <MessageSquare className="text-white" size={40} />
-                </div>
-              </div>
-              <div className="p-8 flex-1 flex flex-col">
-                <div className="text-[10px] font-bold text-[#075FE4] uppercase mb-2">Conteúdo & Escala</div>
-                <h3 className="text-xl font-bold mb-3">Motor de Brand Voice</h3>
-                <p className="text-sm text-slate-400 leading-relaxed mb-6">Sistema de Prompt Chaining que gera conteúdo multiplataforma mantendo o tom de voz idêntico ao humano, reduzindo custos de produção em 70%.</p>
-                <div className="mt-auto flex flex-wrap gap-2">
-                    <span className="text-[10px] px-2 py-1 bg-white/5 rounded-md border border-white/10 text-slate-400">n8n</span>
-                    <span className="text-[10px] px-2 py-1 bg-white/5 rounded-md border border-white/10 text-slate-400">Claude 3.5</span>
-                    <span className="text-[10px] px-2 py-1 bg-white/5 rounded-md border border-white/10 text-slate-400">Airtable</span>
-                </div>
-              </div>
-            </div>
-
-            {/* Case 3 */}
-            <div className="group relative rounded-3xl overflow-hidden bg-slate-900 border border-white/10 hover:border-[#075FE4]/50 transition-all flex flex-col">
-              <div className="h-48 bg-gradient-to-br from-emerald-900/20 to-[#020617] flex items-center justify-center p-8">
-                <div className="p-4 bg-white/10 backdrop-blur-md rounded-2xl border border-white/10">
-                    <BarChart3 className="text-white" size={40} />
-                </div>
-              </div>
-              <div className="p-8 flex-1 flex flex-col">
-                <div className="text-[10px] font-bold text-[#075FE4] uppercase mb-2">RevOps & Dados</div>
-                <h3 className="text-xl font-bold mb-3">Dashboard de Atribuição</h3>
-                <p className="text-sm text-slate-400 leading-relaxed mb-6">Estrutura completa de tracking (UTMs) e atribuição de receita no HubSpot, integrando GA4 para provar ROI real por canal de aquisição.</p>
-                <div className="mt-auto flex flex-wrap gap-2">
-                    <span className="text-[10px] px-2 py-1 bg-white/5 rounded-md border border-white/10 text-slate-400">HubSpot</span>
-                    <span className="text-[10px] px-2 py-1 bg-white/5 rounded-md border border-white/10 text-slate-400">GTM</span>
-                    <span className="text-[10px] px-2 py-1 bg-white/5 rounded-md border border-white/10 text-slate-400">Power BI</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* CTA / Contact */}
-      <section id="contato" className="py-24 relative overflow-hidden">
-        <div className="absolute inset-0 bg-[#075FE4]/5 pointer-events-none" />
-        <div className="max-w-4xl mx-auto px-6 text-center relative z-10">
-          <h2 className="text-4xl md:text-6xl font-bold mb-8">Pronto para escalar seu marketing com IA?</h2>
-          <p className="text-xl text-slate-400 mb-12">Onde existe um gargalo operacional, existe uma automação inteligente pronta para ser desenhada.</p>
-          
-          <div className="flex flex-col sm:flex-row gap-6 justify-center">
-            <a 
-              href="https://www.linkedin.com/in/nobregasleo" 
-              target="_blank" 
-              rel="noopener noreferrer" 
-              className="bg-[#075FE4] hover:bg-[#075FE4]/80 px-10 py-5 rounded-2xl font-bold flex items-center justify-center gap-3 transition-all"
-            >
-              <Linkedin size={24} /> CONECTAR NO LINKEDIN
-            </a>
-            <a 
-              href="mailto:nobregasleo@gmail.com" 
-              className="bg-white/10 hover:bg-white/20 border border-white/20 px-10 py-5 rounded-2xl font-bold flex items-center justify-center gap-3 transition-all"
-            >
-              <Mail size={24} /> ENVIAR E-MAIL
-            </a>
-          </div>
-
-          <div className="mt-20 pt-10 border-t border-white/10 text-slate-500 text-sm flex flex-col md:flex-row justify-between items-center gap-4">
-            <p>© 2026 Leonardo Nobrega. Growth Marketing | Martech & IA.</p>
-            <div className="flex gap-6 uppercase tracking-widest text-[10px] font-bold">
-                <p>Santos, SP</p>
-                <p>Remote / Hybrid</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Social Bar - Desktop Floating */}
-      <div className="hidden lg:flex fixed left-6 bottom-6 flex-col gap-4 z-40">
-        <a href="https://www.linkedin.com/in/nobregasleo" target="_blank" className="w-12 h-12 bg-slate-900 border border-white/10 flex items-center justify-center rounded-full hover:bg-[#075FE4] hover:border-[#075FE4] transition-all">
-          <Linkedin size={20} />
-        </a>
-        <a href="mailto:nobregasleo@gmail.com" className="w-12 h-12 bg-slate-900 border border-white/10 flex items-center justify-center rounded-full hover:bg-[#075FE4] hover:border-[#075FE4] transition-all">
-          <Mail size={20} />
-        </a>
-      </div>
-    </div>
-  );
-};
-
-export default App;
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
+</body>
+</html>
